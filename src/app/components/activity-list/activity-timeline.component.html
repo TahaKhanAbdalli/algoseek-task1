@@ -1,0 +1,81 @@
+<div class="activity-timeline">
+  <div class="card note-input">
+    <textarea
+      [(ngModel)]="note"
+      (keypress)="allowOnlyText($event)"
+      placeholder="Add a note about Milton Romaguera..."
+    ></textarea>
+    <div class="actions">
+      <div class="action-buttons">
+        <button 
+          class="icon-button" 
+          [class.active]="selectedType === 'note'"
+          (click)="selectType('note')"
+        >
+        <lucide-icon name="message-circle" class="icons"></lucide-icon> 
+        </button>
+        <button 
+          class="icon-button" 
+          [class.active]="selectedType === 'call'"
+          (click)="selectType('call')"
+        >
+        <lucide-icon name="phone" class="icons"></lucide-icon>
+      </button>
+        <button 
+          class="icon-button" 
+          [class.active]="selectedType === 'coffee'"
+          (click)="selectType('coffee')"
+        >
+        <lucide-icon name="coffee" class="icons"></lucide-icon>
+        </button>
+        <button 
+          class="icon-button" 
+          [class.active]="selectedType === 'meeting'"
+          (click)="selectType('meeting')"
+        >
+        <lucide-icon name="user-round" class="icons"></lucide-icon>
+        </button>
+        
+      </div>
+      <button class="submit-button" (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-entry" *ngFor="let entry of entries; let i = index">
+      <div class="icon-container">
+        <lucide-icon [name]="entry.icon" class="icons"></lucide-icon>
+      </div>
+      <div class="entry-content">
+        <p>
+          <span class="highlight">You</span> had a {{ entry.type }} with
+          <span class="highlight">Milton Romaguera</span>
+        </p>
+        <p class="description">{{ entry.description }}</p>
+        <p class="created-by">Created by: <span class="highlight">{{ entry.createdBy }}</span></p>
+      </div>
+      <span class="time-ago">{{ entry.timeAgo }}</span>
+  
+      <!-- Dropdown logic -->
+      <div class="delete-wrapper">
+        <span class="delete-logo">
+          <button
+            class="icon-button"
+            (click)="toggleDropdown(i)"
+          >
+            <lucide-icon name="chevron-down" class="icons"></lucide-icon>
+          </button>
+        </span>
+        <span class="delete-dropdown" *ngIf="activeDropdown === i">
+          <div class="dropdown-content">
+            <p (click)="deleteEntry(i)">Delete</p>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+</div>
+
